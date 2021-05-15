@@ -17,3 +17,17 @@ class all_func():
             imstack = np.hstack((imstack, im))
 
         return imstack
+
+    def rectangle_contour(self,contours):
+        rect_cont = []
+        for contour in contours:
+            area = cv2.contourArea(contour)   
+            if area > 50:
+                peri = cv2.arcLength(contour, True)
+                print(peri)
+                approx = cv2.approxPolyDP(contour, 0.02*peri,True)
+                if len(approx) == 4:
+                    rect_cont.append(contour)
+
+                
+            

@@ -18,7 +18,7 @@ imgBlur = cv2.GaussianBlur(imgGray, (5,5),1)
 imgCanny = cv2.Canny(imgBlur, 10, 50)
 
 contours, hierarchy = cv2.findContours(imgCanny, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-cv2.drawContours(imgcontours, contours, -1, (0,255,0), 10)
+cv2.drawContours(imgcontours, contours,-1, (0,255,0), 10)
 image_contours = cv2.resize(imgcontours,(width,height))
 
 
@@ -26,6 +26,7 @@ image_array =[imgBlur, imgCanny]
 
 funcs = all_func()
 imstack = funcs.stack_images(image_array,imgGray)
+funcs.rectangle_contour(contours)
 
 cv2.imshow("Original",imstack)
 cv2.imshow("contours",image_contours)
