@@ -1,0 +1,7 @@
+Gaussian_blur = https://medium.com/analytics-vidhya/gaussian-blurring-with-python-and-opencv-ba8429eb879b
+
+Find_contours = https://medium.com/analytics-vidhya/opencv-findcontours-detailed-guide-692ee19eeb18#:~:text=OpenCV%20has%20many%20Image%20Processing,removing%20Noise%2CThreshold%20Image%20etc.&text=To%20put%20in%20simple%20words,would%20be%20detected%20as%20contour.
+
+contours_hierachy = https://docs.opencv.org/master/d9/d8b/tutorial_py_contours_hierarchy.html
+
+thresholding = https://docs.opencv.org/master/d7/d4d/tutorial_py_thresholding.html

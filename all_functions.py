@@ -8,22 +8,22 @@ class all_func():
         # images_stacked = cv2.hconcat(img_array)
         # cv2.imshow("All images",images_stacked)
         if dim == 3:
-            imstack = cv2.resize(ori_img,(500,500))
+            imstack = cv2.resize(ori_img,(700,700))
         
             for img in img_array:
                 print(img.shape)
                 print(type(img))
-                im = cv2.resize(img,(500,500))
+                im = cv2.resize(img,(700,700))
                 print(im.shape)
                 imstack = np.hstack((imstack, im))
             return imstack
         else:
-            imstack = cv2.resize(ori_img,(500,500))
+            imstack = cv2.resize(ori_img,(700,700))
         
             for img in img_array:
                 print(img.shape)
                 print(type(img))
-                im = cv2.resize(img,(500,500))
+                im = cv2.resize(img,(700,700))
                 print(im.shape)
                 imstack = np.hstack((imstack, im))
             return imstack
@@ -60,7 +60,61 @@ class all_func():
 
         return pointsnew
 
+    def split_boxes(self, image):
+        rows = np.vsplit(image,5)
+        boxes = []
+        for row in rows:
+            cols = np.hsplit(row, 5)
+            for box in cols:
+                boxes.append(box)
+        return boxes
 
 
+    def showAnserws(self,img,myindex,grading,ans, questions, choices):
+        sectionWidth = int(img.shape[1]/questions)
+        sectionHeight = int(img.shape[0]/choices)
+
+        for x in range(0, questions):
+            myanswer = myindex[x]
+            #TODO
+            centerX = (myanswer*sectionWidth) + sectionWidth//2
+            centerY = (x*sectionHeight) +sectionHeight//2
+
+            if grading[x] ==1:
+                mycolor = (0,255,0)
+            else:
+                mycolor = (0,0,255)
+                correctAns = ans[x]
+                CX = (correctAns*sectionWidth) + sectionWidth//2
+                CY = (x*sectionHeight) +sectionHeight//2
+                cv2.circle(img,(CX,CY),25,(0,255,0),cv2.FILLED)
+
+            cv2.circle(img,(centerX,centerY),25,mycolor,cv2.FILLED)
+
+        return img
                 
             
+    def shift_image(self,image,shift):
+        # for i in range(image.shape[1] -1, image.shape[1] - shift, -1):
+        #     image = np.roll(image, -1, axis=1)
+        #     image[:, -1] = 0
+        h, w, c = image.shape 
+         #set shift magnitude
+        img_shift_right = np.zeros(image.shape)
+        img_shift_down = np.zeros(image.shape)
+        img_shift_left = np.zeros(image.shape)
+        img_shift_up = np.zeros(image.shape)
+
+
+
+        img_shift_right[:,shift:w, :] = image[:,:w-shift, :]
+        img_shift_down[shift:h, :, :] = image[:h-shift, :, :]
+        img_shift_left[:,:w-shift, :] = image[:,shift:, :]
+        img_shift_up[:h-shift, :, :] = image[shift:, :, :]
+        cv2.imshow('left shifted image', img_shift_left)
+        cv2.imshow('right shifted image', img_shift_right)
+        cv2.imshow("Up shifted image",img_shift_up)
+
+        cv2.waitKey()
+
+    
